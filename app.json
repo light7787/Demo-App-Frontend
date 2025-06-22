@@ -12,8 +12,8 @@
       "supportsTablet": true
     },
    "android": {
-      "package": "com.yourcompany.demoapp",  // REQUIRED for EAS builds
-      "versionCode": 1,                      // REQUIRED
+      "package": "com.yourcompany.demoapp",  
+      "versionCode": 1,                      
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
