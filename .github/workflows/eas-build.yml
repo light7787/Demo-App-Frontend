@@ -13,20 +13,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18.x
+          cache: 'npm'
       
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       
       - name: Install EAS CLI
-        run: npm install -g eas-cli
+        run: npm install -g eas-cli@latest
       
-      - name: Login to Expo
+      - name: Configure authentication
         run: |
-          echo "//expo.io/:_authToken=${{ secrets.EAS_ACCESS_TOKEN }}" > ~/.npmrc
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.EAS_ACCESS_TOKEN }}" >> ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.EAS_ACCESS_TOKEN }}" > ~/.npmrc
+          echo "//expo.io/:_authToken=${{ secrets.EAS_ACCESS_TOKEN }}" >> ~/.npmrc
       
-      - name: Build Android APK
+      - name: Run EAS Build
         run: eas build --platform android --non-interactive --profile production
         env:
           EXPO_TOKEN: ${{ secrets.EAS_ACCESS_TOKEN }}
