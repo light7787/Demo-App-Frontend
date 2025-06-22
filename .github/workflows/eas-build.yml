@@ -1,9 +1,15 @@
 name: EAS Build - Android
+
 on:
   workflow_dispatch:
+  push:
+    branches: [main] # Optional: Trigger on pushes to main branch
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: production # Optional: For environment protection
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -12,14 +18,32 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm' # Cache node_modules for faster builds
       
       - name: Install dependencies
-        run: npm install
+        run: npm ci # Clean install for consistency
       
       - name: Install EAS CLI
-        run: npm install -g eas-cli
+        run: npm install -g eas-cli@latest
+      
+      - name: Configure git for EAS
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
       
       - name: Run EAS Build (Android)
-        run: eas build --platform android --non-interactive --profile production
+        run: |
+          eas login --token ${{ secrets.EAS_ACCESS_TOKEN }}
+          eas build --platform android --non-interactive --profile production
         env:
           EXPO_TOKEN: ${{ secrets.EAS_ACCESS_TOKEN }}
+          NODE_OPTIONS: '--max_old_space_size=4096' # Increase memory for large projects
+      
+      - name: Upload APK artifact
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release
+          path: |
+            /home/runner/work/_temp/**/*.apk
+            *.apk
