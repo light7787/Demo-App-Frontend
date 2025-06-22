@@ -3,13 +3,14 @@
     "production": {
       "android": {
         "buildType": "apk",
-        "gradleCommand": ":app:assembleRelease"
+        "gradleCommand": ":app:assembleRelease",
+        "credentialsSource": "remote"
       }
     }
   },
   "cli": {
-    "version": ">=3.0.0",  
+    "version": ">=3.0.0",
     "requireCommit": false,
-    "appVersionSource": "remote"
+    "appVersionSource": "local"
   }
 }
