@@ -11,15 +11,13 @@
     "ios": {
       "supportsTablet": true
     },
-   "android": {
-      "package": "com.yourcompany.demoapp",  
-      "versionCode": 1,                      
+    "android": {
+      "package": "com.yourcompany.demoapp",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
-    },,
       "edgeToEdgeEnabled": true
     },
     "web": {
