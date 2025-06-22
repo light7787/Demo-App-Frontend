@@ -21,15 +21,12 @@ jobs:
       - name: Install EAS CLI
         run: npm install -g eas-cli
       
-      - name: Configure EAS
+      - name: Login to Expo
         run: |
-          eas login --token ${{ secrets.EAS_ACCESS_TOKEN }}
-          eas credentials
-        env:
-          EXPO_TOKEN: ${{ secrets.EAS_ACCESS_TOKEN }}
+          echo "//expo.io/:_authToken=${{ secrets.EAS_ACCESS_TOKEN }}" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.EAS_ACCESS_TOKEN }}" >> ~/.npmrc
       
       - name: Build Android APK
-        run: |
-          eas build --platform android --non-interactive --profile production
+        run: eas build --platform android --non-interactive --profile production
         env:
           EXPO_TOKEN: ${{ secrets.EAS_ACCESS_TOKEN }}
