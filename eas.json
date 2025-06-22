@@ -3,15 +3,13 @@
     "production": {
       "android": {
         "buildType": "apk",
-        "gradleCommand": ":app:assembleRelease",
-        "withoutCredentials": false
-      },
-      "cli": {
-        "appVersionSource": "remote"
+        "gradleCommand": ":app:assembleRelease"
       }
     }
   },
   "cli": {
+    "version": 1,
+    "requireCommit": false,
     "appVersionSource": "remote"
   }
 }
